@@ -180,6 +180,11 @@ export interface IParams {
 				enable: boolean;
 				mode: InteractivityMode | InteractivityMode[];
 			};
+			ondiv: {
+				enable: boolean;
+				mode: InteractivityMode | InteractivityMode[];
+				el: HTMLElement;
+			};
 			resize: boolean;
 		};
 		modes: {

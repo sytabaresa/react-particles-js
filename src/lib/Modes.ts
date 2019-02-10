@@ -67,7 +67,7 @@ export default class Modes {
 				if (
 					ratio >= 0 &&
 					this.library.interactivity.mouseStatus ===
-						MouseInteractivityStatus.MOUSEMOVE
+					MouseInteractivityStatus.MOUSEMOVE
 				) {
 					const bubbleSize = interactivity.modes.bubble.size;
 					const particleSize = particles.size.value;
@@ -102,7 +102,7 @@ export default class Modes {
 							const opacity =
 								particle.opacityValue -
 								(particles.opacity.value - interactivity.modes.bubble.opacity) *
-									ratio;
+								ratio;
 							if (
 								opacity < particle.opacityValue &&
 								opacity >= interactivity.modes.bubble.opacity
@@ -166,7 +166,7 @@ export default class Modes {
 									let value: any =
 										p_obj -
 										(timeSpent * (p_obj - bubble_param)) /
-											interactivity.modes.bubble.duration;
+										interactivity.modes.bubble.duration;
 									if (id == "size") particle.radius_bubble = value;
 									if (id == "opacity") particle.bubbleOpacity = value;
 								}
@@ -179,7 +179,7 @@ export default class Modes {
 								let value_tmp: any =
 									p_obj -
 									(timeSpent * (p_obj - bubble_param)) /
-										interactivity.modes.bubble.duration;
+									interactivity.modes.bubble.duration;
 								let dif: any = bubble_param - value_tmp;
 								let value: any = bubble_param + dif;
 								if (id == "size") particle.radius_bubble = value;
@@ -218,7 +218,7 @@ export default class Modes {
 			interactivity.events.onhover.enable &&
 			isInArray(InteractivityMode.REPULSE, interactivity.events.onhover.mode) &&
 			this.library.interactivity.mouseStatus ===
-				MouseInteractivityStatus.MOUSEMOVE
+			MouseInteractivityStatus.MOUSEMOVE
 		) {
 			const {
 				distance,
@@ -234,9 +234,9 @@ export default class Modes {
 			let velocity: number = 100;
 			let repulseFactor: number = clamp(
 				(1 / repulseRadius) *
-					(-1 * Math.pow(distance / repulseRadius, 2) + 1) *
-					repulseRadius *
-					velocity,
+				(-1 * Math.pow(distance / repulseRadius, 2) + 1) *
+				repulseRadius *
+				velocity,
 				0,
 				50
 			);
@@ -312,6 +312,29 @@ export default class Modes {
 					particle.vy = particle.vy_i;
 				}
 			}
+		} else if (interactivity.events.ondiv.enable) {
+			var elem = interactivity.events.ondiv.el;
+
+			var pos_x = (elem.offsetLeft + elem.offsetWidth / 2),
+				pos_y = (elem.offsetTop + elem.offsetHeight / 2),
+				div_width = elem.offsetWidth / 2;
+
+			var dx_div = particle.x - pos_x,
+				dy_div = particle.y - pos_y,
+				dist_div = Math.sqrt(dx_div * dx_div + dy_div * dy_div);
+
+			var normVec = { x: dx_div / dist_div, y: dy_div / dist_div },
+				repulseRadius = div_width,
+				velocity = 100,
+				repulseFactor = clamp((1 / repulseRadius) * (-1 * Math.pow(dist_div / repulseRadius, 4) + 1) * repulseRadius * velocity, 0, 50);
+
+			let pos: TPoint = {
+				x: particle.x + normVec.x * repulseFactor,
+				y: particle.y + normVec.y * repulseFactor,
+			}
+
+			particle.x = pos.x;
+			particle.y = pos.y;
 		}
 	}
 
@@ -323,7 +346,7 @@ export default class Modes {
 		if (
 			interactivity.events.onhover.enable &&
 			this.library.interactivity.mouseStatus ===
-				MouseInteractivityStatus.MOUSEMOVE
+			MouseInteractivityStatus.MOUSEMOVE
 		) {
 			const distance = this.library.manager.getDistance(
 				particle,

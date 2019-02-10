@@ -97,6 +97,11 @@ const defaultParams: IParams = {
 				enable: false,
 				mode: InteractivityMode.REPULSE
 			},
+			ondiv: {
+				enable: false,
+				mode: InteractivityMode.REPULSE,
+				el: null
+			},
 			resize: true
 		},
 		modes: {
