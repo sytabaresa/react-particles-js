@@ -313,7 +313,7 @@ export default class Modes {
 				}
 			}
 		} else if (interactivity.events.ondiv.enable) {
-			var elem = interactivity.events.ondiv.el;
+			var elem = document.getElementById(interactivity.events.ondiv.el);
 
 			var pos_x = (elem.offsetLeft + elem.offsetWidth / 2),
 				pos_y = (elem.offsetTop + elem.offsetHeight / 2),

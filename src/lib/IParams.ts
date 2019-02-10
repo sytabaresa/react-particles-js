@@ -183,7 +183,7 @@ export interface IParams {
 			ondiv: {
 				enable: boolean;
 				mode: InteractivityMode | InteractivityMode[];
-				el: HTMLElement;
+				el: string;
 			};
 			resize: boolean;
 		};
